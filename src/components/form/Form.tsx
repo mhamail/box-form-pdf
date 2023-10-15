@@ -4,44 +4,46 @@ import Header from '../header/Header'
 
 const Form = () => {
   const Mention = ({ component, mention }: { component: any, mention: string }) => (
-    <div className='flex items-end'>
-      <div className='flex space-x-1'>
+    <div className='flex'>
+      <div className='flex space-x-1 '>
         {component}
       </div>
-      <span className='text-xs ms-[1px]'>{mention}</span>
+      <span className='text-[7px] ms-[1px]'>{mention}</span>
     </div>
   )
   const MentionContainer = ({ text, item, space, wf }: { wf?: boolean, text: string, item: string[], space?: boolean }) => (
-    <div className='flex'>
+    <ContentOutline>
       <Title>{text}</Title>
       <Boxes wf={wf}>
         <p>:</p>
-        <div className={`w-full flex ${space ? "space-x-6" : "justify-between"}`}>
-          {item.map((item: any, i: any) => (
-            <Mention key={i}
-              component={<Box b={1} />}
-              mention={item}
-            />
-          ))}
+        <div className={`w-full`}>
+          <div className={`flex ${space ? "space-x-6" : "justify-between"} `}>
+            {item.map((item: any, i: any) => (
+              <Mention key={i}
+                component={<Box b={1} />}
+                mention={item}
+              />
+            ))}
+          </div>
         </div>
       </Boxes>
-    </div>
+    </ContentOutline>
   )
 
   const FullLineBox = ({ text, italic }: { text: string, italic?: boolean, }) => (
-    <div className='flex'>
+    <ContentOutline>
       <Title><span className={`${italic && "italic"}`}>{text}</span></Title>
       <Boxes wf>
         <p>:</p>
         <Box b={22} />
       </Boxes>
-    </div>
+    </ContentOutline>
   )
 
-  const DashBoxes = ({ title, item }: { title: string, item: number[] }) => (
-    <div className='flex'>
+  const DashBoxes = ({ title, item, wf }: { wf?: boolean, title: string, item: number[] }) => (
+    <ContentOutline>
       <Title>{title}</Title>
-      <Boxes>
+      <Boxes wf={wf}>
         <p>:</p>
         {item.map((quantity, i) => (
           <>
@@ -50,12 +52,12 @@ const Form = () => {
           </>
         ))}
       </Boxes>
-    </div>
+    </ContentOutline>
   )
   const MentionDashBoxes = ({ title, item }: { title: string, item: number[] }) => (
-    <div className='flex'>
+    <ContentOutline>
       <Title>{title}</Title>
-      <Boxes>
+      <Boxes wf>
         <Mention
           component={
             <>
@@ -72,27 +74,34 @@ const Form = () => {
           mention='(DD-MM-YYYY)'
         />
       </Boxes>
-    </div>
+    </ContentOutline>
   )
+  // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // depends styles
   const Title = ({ children }: { children: React.ReactNode }) => (
     <div className="w-4/12">
-      <p>{children}</p>
+      <p>
+        {children}
+      </p>
     </div>
   )
   const Heading = ({ children }: { children: React.ReactNode }) => (
-    <h4 className='font-bold'>{children}</h4>
+    <h4 className=' font-bold uppercase text-xs'>{children}</h4>
   )
   const Boxes = ({ children, wf }: { children: React.ReactNode, wf?: boolean }) => (
     //  320+128 = 328 
-    <div className={`${wf ? "w-[448px]" : "w-[320px] mr-32"} ml-auto `}>
-      <div className='flex space-x-1 '>
-        {children}
+    <div>
+      <div className={`w-[272px]`}>
+        <div className={`${wf ? "" : "w-[170px] mr-32"} `}>
+          <div className='flex space-x-1 items-center'>
+            {children}
+          </div>
+        </div>
       </div>
     </div>
   )
   const ContentOutline = ({ children }: { children: React.ReactNode }) => (
-    <div className='flex'>
+    <div className='flex justify-between text-[10px] leading-[10px]' >
       {children}
     </div>
   )
@@ -102,15 +111,16 @@ const Form = () => {
         <Header />
       </div>
       <div className=' bg-gray-900 h-[2px] w-11/12 mx-auto'></div>
-      <div className=' mx-auto'>
+      <div className='w-[90%] mx-auto'>
         {children}
       </div>
     </div>
   )
+  // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   return (
     <Layout>
       <div className='w-full flex space-x-4 relative'>
-        <div className='w-full space-y-1'>
+        <div className='w-full space-y-1 leading-[1.1px]'>
           {/*  */}
           <DashBoxes title='Date' item={[2, 2, 4]} />
           {/* */}
@@ -194,7 +204,7 @@ const Form = () => {
           <FullLineBox text='Province' />
           <ContentOutline>
             <Title>Phone/Mobile Number</Title>
-            <Boxes>
+            <Boxes wf>
               <p>:</p>
               <Box b={3} />
               <p>-</p>
@@ -246,7 +256,7 @@ const Form = () => {
           {/*  */}
           <FullLineBox text='State/Country' />
           {/*  */}
-          <DashBoxes
+          <DashBoxes wf
             item={[3, 3, 9]}
             title='Mobile Number'
           />
@@ -276,7 +286,7 @@ const Form = () => {
           <FullLineBox text='Province' />
           <FullLineBox text='State/Country' />
           {/*  */}
-          <DashBoxes item={[3, 3, 9]} title='Phone Number' />
+          <DashBoxes wf item={[3, 3, 9]} title='Phone Number' />
           {/* **********Passport  Information*************** */}
           <Heading>IV. Passport Information</Heading>
           <MentionContainer
@@ -318,7 +328,7 @@ const Form = () => {
           </ContentOutline>
           <FullLineBox text='City' />
           <FullLineBox text='Country' />
-          <DashBoxes title='Mobile/Phone Number' item={[3, 3, 9]} />
+          <DashBoxes wf title='Mobile/Phone Number' item={[3, 3, 9]} />
           {/* ********************Miscellaneous*************************************8 */}
           <MentionContainer text='Have you ever been to Indonesia before ?'
             item={["yes", "No"]}
@@ -390,17 +400,17 @@ const Form = () => {
           />
           {/* ******End lines************ */}
           <div className='pt-3 space-y-3'>
-            <p className='font-semibold'>
+            <p className='font-semibold text-[10px] leading-[12px] mb-3'>
               I, hereby declare that the statements given above are true and I understand that even if granted a visa,
               <br />
               prerequites checked administration at the airport remains the discreation of the Immigration authorities in Indonesia
             </p>
 
             Applicant`s signature and name
-            <ContentOutline>
+            <div className='flex space-x-4'>
               <div className='w-1 h-1 border border-gray-500 px-36 py-16'></div>
-              <div className='flex mt-10 ms-10'>
-                <div className='flex space-x-1'>
+              <div className='flex mt-10 items-start'>
+                <div className='flex space-x-1 items-center '>
                   <Box b={2} />
                   <p>-</p>
 
@@ -408,18 +418,18 @@ const Form = () => {
                   <p>-</p>
                   <Box b={4} />
                 </div>
-                <span className='mt-1 text-xs ms-[1px]'>(DD-MM-YYYY)</span>
+                <span className=' text-[10px] leading-[12px] ms-[1px]'>(DD-MM-YYYY)</span>
               </div>
-            </ContentOutline>
-            <p className='font-semibold'>
+            </div>
+            <p className='font-semibold text-[10px] leading-[12px]'>
               &quot;Passport must be valid not least than 6 (six) months before departure&quot;</p>
           </div>
         </div>
 
 
         {/* +++++++++++++++++++++++++++++pic+++++++++++++++++++++++++++++++++++++++= */}
-        <div className='w-32 h-32 ps-2 absolute right-0'>
-          <div className='p-4 h-32 border border-gray-800'></div>
+        <div className='w-[92px] h-auto absolute right-0'>
+          <div className='p-4 h-28 border border-gray-800'></div>
         </div>
 
       </div>
