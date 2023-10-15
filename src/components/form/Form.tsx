@@ -1,6 +1,7 @@
 import React from 'react'
 import Box from '../Box/Box'
 import Header from '../header/Header'
+import CheckedBox from '../checkbox/CheckedBox'
 
 const Form = () => {
   const Mention = ({ component, mention }: { component: any, mention: string }) => (
@@ -20,7 +21,7 @@ const Form = () => {
           <div className={`flex ${space ? "space-x-6" : "justify-between"} `}>
             {item.map((item: any, i: any) => (
               <Mention key={i}
-                component={<Box b={1} />}
+                component={<CheckedBox />}
                 mention={item}
               />
             ))}
@@ -106,11 +107,13 @@ const Form = () => {
     </div>
   )
   const Layout = ({ children }: { children: React.ReactNode }) => (
-    <div className='w-[595px] space-y-2'>
-      <div className=' mx-auto mt-10'>
+    <div className='w-[595px] mx-auto space-y-2'>
+      <div className='w-[90%] mx-auto mt-10'>
         <Header />
       </div>
-      <div className=' bg-gray-900 h-[2px] w-11/12 mx-auto'></div>
+      <div className=' border border-gray-900 bg-gray-900 h-[1px] w-12/12 mx-auto'>
+
+      </div>
       <div className='w-[90%] mx-auto'>
         {children}
       </div>
@@ -261,7 +264,7 @@ const Form = () => {
             title='Mobile Number'
           />
           {/*  */}
-          <div className='border p-1 border-gray-500'>
+          <div className='border p-1 border-gray-500 space-y-1'>
             <FullLineBox text="Father's name" italic />
             <FullLineBox text='Occupation' italic />
             <FullLineBox text="Mother's name" italic />
@@ -376,7 +379,7 @@ const Form = () => {
             <Title> If &quot;Yes&quot; give detail 2 previous posting </Title>
             <Boxes wf>
               : &nbsp;
-              <div className=''>
+              <div className='space-y-1'>
 
                 <div className='flex space-y-0 p-0 m-0 '>
                   1 &nbsp; <Box b={20} />

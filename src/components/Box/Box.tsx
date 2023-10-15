@@ -14,6 +14,7 @@ const Box = ({ b }: { b: number }) => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    console.log(e.target.value)
     const newValue = e.target.value.slice(0, 1);
 
     // Update the value of the input field with the entered character
@@ -39,7 +40,7 @@ const Box = ({ b }: { b: number }) => {
           key={index}
           // @ts-ignore
           ref={(el) => (inputRefs.current[index] = el)}
-          className='text-center border border-gray-800 d-block w-1 h-1 p-[5px] '
+          className='text-center border border-gray-800 d-block w-3 h-3 p-[1px]  '
           type="text"
           onKeyDown={(e) => handleKeyDown(e, index)} // Handle Backspace and focus change
           onChange={(e) => handleInputChange(e, index)} // Automatically move to the next input on input
